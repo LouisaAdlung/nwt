@@ -1,0 +1,36 @@
+int i;
+int l;
+int n;
+int j;
+
+void BTCheck(int CONN)
+{
+ if(!BluetoothStatus(CONN)==NO_ERR)
+ {
+  TextOut(1,LCD_LINE1,"disconnected");
+  Wait(1000);
+  Stop(false);
+ }
+}
+
+
+task main ()
+{
+SetSensorTouch(IN_4);
+BTCheck(1);
+while(TRUE)
+{
+i=MotorTachoCount(OUT_A);
+NumOut(1, LCD_LINE1, i, true);
+SendRemoteNumber(1, 1, i);
+l=MotorTachoCount(OUT_C);
+NumOut(1, LCD_LINE2, l);
+SendRemoteNumber(1, 2, l);
+n=Sensor(IN_4);
+NumOut(1, LCD_LINE3, n);
+SendRemoteNumber(1, 3, n);
+j=l*2;
+NumOut(1, LCD_LINE4, j);
+SendRemoteNumber(1, 4, j);
+}
+}

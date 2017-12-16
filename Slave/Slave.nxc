@@ -1,0 +1,77 @@
+int in;
+int in1;
+int in2;
+int in3;
+int l;
+int i;
+int n;
+int j;
+int up;
+
+
+task go();
+task receive();
+
+void BTCheck(int CONN)
+{
+ if (!BluetoothStatus(CONN)==NO_ERR)
+     { TextOut(1,LCD_LINE1,"diconnented");
+     Wait(100);
+     Stop(TRUE);
+     }
+ }
+ 
+ 
+ task main()
+ {
+ 
+  BTCheck(0);
+  StartTask(receive);
+  StartTask(go);
+ }
+ //__________________________
+ task receive ()
+ {
+  while(TRUE)
+       {
+       ReceiveRemoteNumber(1 ,false,i);
+       Wait(50);
+       ReceiveRemoteNumber(2,false,l);
+       ReceiveRemoteNumber(3,false,n);
+       ReceiveRemoteNumber(4,false,j);
+       NumOut(1,LCD_LINE1,i,true);
+       NumOut(1,LCD_LINE2,l);
+       NumOut(1,LCD_LINE3,n);
+       NumOut(1,LCD_LINE4,j);
+       Wait(50);
+}
+}
+//___________________________
+
+
+ task go ()
+ {
+   while(true)
+   {
+     Wait(50);
+     up=l*6;
+     if(up>127)
+       up=127;
+     if(up<-127)
+       up=-127;
+       
+
+     NumOut(1,LCD_LINE5,up);
+     OnFwd(OUT_B,up);
+     OnFwd(OUT_C,-i);
+     if (n==1)
+     {
+     OnFwd(OUT_A, -20);
+     }
+     if(n==0)
+     {
+     OnFwd(OUT_A, 20);
+     }
+ }
+    }
+
