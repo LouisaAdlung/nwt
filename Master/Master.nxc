@@ -8,7 +8,7 @@ void BTCheck(int CONN)
  if(!BluetoothStatus(CONN)==NO_ERR)
  {
   TextOut(1,LCD_LINE1,"disconnected");
-  Wait(10000);
+  Wait(1000);
   Stop(false);
  }
 }
